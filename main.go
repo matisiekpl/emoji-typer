@@ -39,8 +39,10 @@ func insert(c echo.Context) error {
 
 func index(c echo.Context) error {
 	tpl, _ := box.FindString("index.html")
+	hostname, _ := os.Hostname()
 	html, _ := raymond.Render(tpl, map[string]interface{}{
 		"messages": messages,
+		"hostname": hostname,
 	})
 	return c.HTML(http.StatusOK, html)
 }
