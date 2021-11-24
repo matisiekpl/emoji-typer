@@ -1,0 +1,19 @@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forum</title>
+</head>
+<body>
+<h1>Forum</h1>
+<form action="/insert" method="post">
+    <input type="text" name="author" placeholder="Autor" required>
+    <input type="text" name="content" placeholder="Treść komentarza" required>
+    <button type="submit">Dodaj komentarz!</button>
+</form>
+<ul>
+    {{#each messages}}
+    <li> {{this.author}} written: {{this.content}}</li>
+    {{/each}}
+</ul>
+</body>
+</html>
