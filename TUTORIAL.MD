@@ -37,36 +37,38 @@ $ docker build -t emoji-typer .
 $ docker tag emoji-typer matisiekpl/emoji-typer
 $ docker push matisiekpl/emoji-typer
 ```
-![img.png](img.png)
+
+![img.png](images/img.png)
+
 ## Krok 3
 > Tworzenie serwera VPS u dostawcy Vultr
 
 Po utworzeniu konta przechodzimy do panelu serwerów:
-![img_5.png](img_5.png)
+![img_5.png](images/img_5.png)
 
 Klikamy "Deploy instance". Otwiera się panel zamawiania serwera. Wybieramy pulę serwerów wysokiej częstotliwości. Następnie wybieramy lokalizację. Sztokholm wydaje się rozsądny, bo nie jest zbyt daleko Polski (wybierając Stany Zjednoczone Ameryki można by było odczuć opóźnienia związane z tym, że transmisja musiałaby zostać przesłana przez infrastrukturę pod oceanem)
-![img_6.png](img_6.png)
+![img_6.png](images/img_6.png)
 
 Następnie wybieramy system operacyjny. Wybrałem swój ulubiony czyli Ubuntu Server 20.04 LTS. Konfigurację maszyny wirtualnej wybieram 1 wersji 1vcpu/1gb ze względu na studencką cenę
-![img_7.png](img_7.png)
+![img_7.png](images/img_7.png)
 
 Czekamy aż system się zainstaluje
-![img_8.png](img_8.png)
+![img_8.png](images/img_8.png)
 
 Następnie łączymy się za pomocą protokołu SSH, używając danych z lewej kolumny
 
-![img_12.png](img_12.png)
+![img_12.png](images/img_12.png)
 
-![img_9.png](img_9.png)
+![img_9.png](images/img_9.png)
 
 Jako dystrybucję platformy Kubernetes wybrałem lekki i szybki K3S od Ranchera
-![img_10.png](img_10.png)
+![img_10.png](images/img_10.png)
 
 Instalujemy Kubernetes za pomocą komendy:
 ```bash
 $ curl -sfL https://get.k3s.io | sh -
 ```
-![img_11.png](img_11.png)
+![img_11.png](images/img_11.png)
 
 > W tym miejscu należałoby wytłumaczyć sposób organizacji zasobów w klastrze Kubernetes
 > 
@@ -96,7 +98,7 @@ spec:
   selector:
     matchLabels:
       app: emoji-typer # Zasób Deployment będzie zarządzał ReplicaSetami, których etykieta app=emoji-typer
-  replicas: 6 # Liczba podów w replice. Jeżeli mamy np. trzy serwery, to te 6 podów zostanie rozproszone na trzy serwery (czyli za pewne na każdy serwer będą przypadać dwa pody)
+  replicas: 5 # Liczba podów w replice. Jeżeli mamy np. trzy serwery, to te 5 podów zostanie rozproszone na trzy serwery (czyli za pewne na pierwszy i drugi serwer będą przypadać dwa pody a na ostatni - jeden)
   template:
     metadata:
       labels:
@@ -125,3 +127,20 @@ spec:
 Taki plik commitujemy i wypychamy do repozytorium.
 Następnie możemy go pobrać na serwerze, po czym wywołać komendę `kubectl apply`, aby konfiguracja została zastosowana na klastrze.
 
+![img_13.png](images/img_13.png)
+
+Jak widać tuż po wywołaniu komendy, nie wszystkie pody zostały stworzone. Jednak po chwili nasze pody zyskały status `Running` co oznacza, że obraz został pobrany i uruchomiony. Zasób `Service` również wygląda okej.
+
+Przechodząc pod adres serwera (z dopiskiem portu 30123) widzimy, że wszystko działa:
+
+![img_14.png](images/img_14.png)
+
+![img_15.png](images/img_15.png)
+
+Warto zwrócić uwagę na to, że ruch jest kierowany w sposób losowy a więc nazwa węzła widoczna w aplikacji będzie się zmieniać
+![img_16.png](images/img_16.png)
+
+Widzimy więc, że osiągneliśmy dystrybucję ruchu na wiele podów w obrębie ReplicaSetu. Nasza aplikacja została wdrożona
+
+# Udało się!
+Widzimy więc, że wdrożenie aplikacji za pomocą Kubernetesa nie jest wcale trudne. Możliwości Kubernetesa są jednak o wiele większe, a w przypadku popularnych aplikacji webowych, rozproszone wdrożenie usług jest wręcz konieczne
