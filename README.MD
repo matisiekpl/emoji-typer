@@ -1,7 +1,7 @@
-# Konteneryzacja aplikacji i wdrożenie na klaster Kubernetes
+# Konteneryzacja aplikacji i wdrożenie na klaster Kubernetes  🚀
 > Ten poradnik pokazuje w jaki sposób skonteneryzować aplikację webową napisaną w Go oraz wdrożyć ją na klaster Kubernetes postawiony na infrastrukturze dostawcy Vultr. 
 
-## Krok 1
+## Krok 1  🐳
 > Skonteneryzuj aplikację. Aplikację możemy spakować do tak zwanego kontenera. Jest to specjalne "opakowanie" na oprogramowanie, które pozwala uruchomić je zawsze w taki sam sposób, niezależnie od środowiska. W końcu możemy pożegnać teksty typu "Ale u mnie działa"
 
 W tym celu tworzymy plik Dockerfile w głównym katalogu projektu
@@ -28,7 +28,7 @@ COPY --from=build /go/src/emoji_typer/emoji_typer /emoji_typer
 CMD ["/emoji_typer"]
 ```
 
-## Krok 2
+## Krok 2  🔨
 > Utwórz obraz kontenera i wypchnij go do rejestru kontenerów.
 
 Kompilujemy kontener do jego obrazu (który potem stanowi podstawę do tworzenia kontenera na serwerze). Następnie zmieniamy jego nazwę (rejestr kontenerów wymaga prefixu zawierającego login użytkownika). Następnie wypychamy obraz do rejestru
@@ -40,7 +40,7 @@ $ docker push matisiekpl/emoji-typer
 
 ![img.png](images/img.png)
 
-## Krok 3
+## Krok 3  ☁️
 > Tworzenie serwera VPS u dostawcy Vultr
 
 Po utworzeniu konta przechodzimy do panelu serwerów:
@@ -82,7 +82,7 @@ $ curl -sfL https://get.k3s.io | sh -
 > 
 > Po co to wszystko? Przecież można by było uruchomić kontener ręcznie ---- owszem, można by było. Ale jeżeli do klastra dołączymy kolejne serwery, to Kubernetes będzie czuwał nad tym, aby aplikacja była równomiernie uruchomiona na wszystkich węzłach, a ruch był równomiernie dystrybuowany na wszystkie węzły (serwery podłączone do Kubernetes).
 
-# Krok 3
+# Krok 4  🏁
 > Utworzenie konfiguracji wdrożeniowej i zaaplikowanie jej na klaster
 
 Teraz musimy utworzyć pliki konfigurcyjne. Dobrą praktyką jest tworzenie ich w repozytorium
@@ -142,5 +142,5 @@ Warto zwrócić uwagę na to, że ruch jest kierowany w sposób losowy a więc n
 
 Widzimy więc, że osiągneliśmy dystrybucję ruchu na wiele podów w obrębie ReplicaSetu. Nasza aplikacja została wdrożona
 
-# Udało się!
-Widzimy więc, że wdrożenie aplikacji za pomocą Kubernetesa nie jest wcale trudne. Możliwości Kubernetesa są jednak o wiele większe, a w przypadku popularnych aplikacji webowych, rozproszone wdrożenie usług jest wręcz konieczne
+# Udało się! 🚀
+Widzimy więc, że wdrożenie aplikacji za pomocą Kubernetesa nie jest wcale trudne. Możliwości Kubernetesa są jednak o wiele większe, a w przypadku popularnych aplikacji webowych, rozproszone wdrożenie usług jest wręcz konieczne 😎
