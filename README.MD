@@ -1,6 +1,9 @@
 # Konteneryzacja aplikacji i wdrożenie na klaster Kubernetes  🚀
 > Ten poradnik pokazuje w jaki sposób skonteneryzować aplikację webową napisaną w Go oraz wdrożyć ją na klaster Kubernetes postawiony na infrastrukturze dostawcy Vultr. 
 
+![image](https://user-images.githubusercontent.com/21008961/143301962-a870cb85-9427-4482-9128-b29e5ec06212.png)
+
+
 ## Krok 1  🐳
 > Skonteneryzuj aplikację. Aplikację możemy spakować do tak zwanego kontenera. Jest to specjalne "opakowanie" na oprogramowanie, które pozwala uruchomić je zawsze w taki sam sposób, niezależnie od środowiska. W końcu możemy pożegnać teksty typu "Ale u mnie działa"
 
