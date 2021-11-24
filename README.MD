@@ -1,6 +1,8 @@
 # Konteneryzacja aplikacji i wdrożenie na klaster Kubernetes  🚀
 > Ten poradnik pokazuje w jaki sposób skonteneryzować aplikację webową napisaną w Go oraz wdrożyć ją na klaster Kubernetes postawiony na infrastrukturze dostawcy Vultr. 
 
+> Link do strony http://srv3.enteam.pl:30123/ (VPS na vultrze usunąłem, bo wolę płacić za jeden niż dwa VPSy)
+
 ![image](https://user-images.githubusercontent.com/21008961/143301962-a870cb85-9427-4482-9128-b29e5ec06212.png)
 
 
